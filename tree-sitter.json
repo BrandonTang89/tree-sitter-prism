@@ -7,8 +7,9 @@
       "title": "prism",
       "scope": "source.prism",
       "file-types": [
-        ".prism"
+        "prism"
       ],
+      "highlights": "queries/highlights.scm",
       "injection-regex": "^prism$",
       "class-name": "TreeSitterPrism"
     }
