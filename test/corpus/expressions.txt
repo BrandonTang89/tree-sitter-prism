@@ -1,0 +1,604 @@
+================================================================================
+Literal expressions
+================================================================================
+
+csg
+module test
+  [] true -> true;
+  [] false -> true;
+  [] 42 -> true;
+  [] 3.14 -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression (boolean_literal))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression (boolean_literal))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression (integer_literal))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression (double_literal))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Unary expressions
+================================================================================
+
+csg
+module test
+  [] -x -> true;
+  [] !done -> true;
+  [] -3 -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (unary_expression
+          (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (unary_expression
+          (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (unary_expression
+          (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Binary expressions - arithmetic
+================================================================================
+
+csg
+module test
+  [] a + b -> true;
+  [] a - b -> true;
+  [] a * b -> true;
+  [] a / b -> true;
+  [] a ^ b -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Binary expressions - relational and equality
+================================================================================
+
+csg
+module test
+  [] x < 10 -> true;
+  [] x <= 10 -> true;
+  [] x >= 0 -> true;
+  [] x > 0 -> true;
+  [] x = 5 -> true;
+  [] x != 5 -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Binary expressions - logical
+================================================================================
+
+csg
+module test
+  [] a & b -> true;
+  [] a | b -> true;
+  [] a <=> b -> true;
+  [] a => b -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Precedence - arithmetic before comparison
+================================================================================
+
+csg
+module test
+  [] x + 1 >= 5 -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (integer_literal))))
+          right: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Precedence - conjunction before disjunction
+================================================================================
+
+csg
+module test
+  [] a & b | c -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (identifier))))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Precedence - multiplication before addition
+================================================================================
+
+csg
+module test
+  [] a + b * c -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (identifier))))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Associativity - left for arithmetic
+================================================================================
+
+csg
+module test
+  [] a - b - c -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (identifier))))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Associativity - right for implication
+================================================================================
+
+csg
+module test
+  [] a => b => c -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression (identifier))
+          right: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (identifier))))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Ternary expression
+================================================================================
+
+csg
+module test
+  [] x > 0 ? 1 : 0 -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (ternary_expression
+          condition: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (integer_literal))))
+          consequence: (expression (integer_literal))
+          alternative: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Parenthesized expression
+================================================================================
+
+csg
+module test
+  [] (a + b) * c -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (parenthesized_expression
+              (expression
+                (binary_expression
+                  left: (expression (identifier))
+                  right: (expression (identifier))))))
+          right: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Function calls
+================================================================================
+
+csg
+module test
+  [] min(x, 10) -> true;
+  [] max(a, b, c) -> true;
+  [] floor(3.14) -> true;
+  [] ceil(x) -> true;
+  [] round(x) -> true;
+  [] pow(2, 8) -> true;
+  [] mod(x, 3) -> true;
+  [] log(x, 2) -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (identifier))
+          arguments: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (identifier))
+          arguments: (expression (identifier))
+          arguments: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (double_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (identifier))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (integer_literal))
+          arguments: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (identifier))
+          arguments: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression (identifier))
+          arguments: (expression (integer_literal))))
+      updates: (update_list (update (boolean_literal))))))
+
+================================================================================
+Complex expression from PRISM manual
+================================================================================
+
+csg
+module test
+  x : [1..10] init 5;
+  [] x >= 1 & x <= 10 -> x/10 : (x'=max(1,x-1)) + 1-x/10 : (x'=min(10,x+1));
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    variables: (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal))
+      initial_value: (expression (integer_literal)))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (integer_literal))))
+          right: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (integer_literal))))))
+      updates: (update_list
+        (expression
+          (binary_expression
+            left: (expression (identifier))
+            right: (expression (integer_literal))))
+        (update
+          (assignment
+            variable: (identifier)
+            value: (expression
+              (function_call
+                function: (builtin_function)
+                arguments: (expression (integer_literal))
+                arguments: (expression
+                  (binary_expression
+                    left: (expression (identifier))
+                    right: (expression (integer_literal))))))))
+        (expression
+          (binary_expression
+            left: (expression (integer_literal))
+            right: (expression
+              (binary_expression
+                left: (expression (identifier))
+                right: (expression (integer_literal))))))
+        (update
+          (assignment
+            variable: (identifier)
+            value: (expression
+              (function_call
+                function: (builtin_function)
+                arguments: (expression (integer_literal))
+                arguments: (expression
+                  (binary_expression
+                    left: (expression (identifier))
+                    right: (expression (integer_literal))))))))))))
+
+================================================================================
+Nested function calls in expressions
+================================================================================
+
+csg
+module test
+  [] min(x + 1, max(y, z)) -> true;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (function_call
+          function: (builtin_function)
+          arguments: (expression
+            (binary_expression
+              left: (expression (identifier))
+              right: (expression (integer_literal))))
+          arguments: (expression
+            (function_call
+              function: (builtin_function)
+              arguments: (expression (identifier))
+              arguments: (expression (identifier))))))
+      updates: (update_list (update (boolean_literal))))))
