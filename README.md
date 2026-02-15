@@ -5,7 +5,8 @@ A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/index.html) grammar fo
 Developed for CSGs, TSGs, MDPs, CTMCs and DTMCs. Focused specifically on CSGs during development so some of the syntax for the other types of models may not be fully supported yet.
 
 Particularly we do not support
-- Nested LTL in properties
+- LTL-style path properties
+- Co-safe LTL reward properties
 - Anything real-time related
 - Anything partially-observable related
 

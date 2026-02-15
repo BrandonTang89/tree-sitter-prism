@@ -494,15 +494,15 @@
       "members": [
         {
           "type": "SYMBOL",
-          "name": "prob_objective"
+          "name": "non_zero_prob_objective"
         },
         {
           "type": "SYMBOL",
-          "name": "reward_objective"
+          "name": "non_zero_reward_objective"
         }
       ]
     },
-    "prob_objective": {
+    "non_zero_prob_objective": {
       "type": "SEQ",
       "members": [
         {
@@ -527,7 +527,7 @@
         }
       ]
     },
-    "reward_objective": {
+    "non_zero_reward_objective": {
       "type": "SEQ",
       "members": [
         {
@@ -1905,7 +1905,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "co_safe_reward"
+          "name": "cumulative_reachability"
         },
         {
           "type": "SYMBOL",
@@ -1914,14 +1914,6 @@
         {
           "type": "SYMBOL",
           "name": "steady_state_reward"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "until_query"
-        },
-        {
-          "type": "SYMBOL",
-          "name": "next_query"
         }
       ]
     },
@@ -1988,7 +1980,7 @@
         }
       ]
     },
-    "co_safe_reward": {
+    "cumulative_reachability": {
       "type": "SEQ",
       "members": [
         {

@@ -51,22 +51,6 @@
     "fields": {}
   },
   {
-    "type": "co_safe_reward",
-    "named": true,
-    "fields": {
-      "operand": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "state_formula",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "coalition",
     "named": true,
     "fields": {},
@@ -201,6 +185,22 @@
         "types": [
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "cumulative_reachability",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
             "named": true
           }
         ]
@@ -750,6 +750,48 @@
     }
   },
   {
+    "type": "non_zero_prob_objective",
+    "named": true,
+    "fields": {
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "path_query",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "non_zero_reward_objective",
+    "named": true,
+    "fields": {
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "reward_query",
+            "named": true
+          }
+        ]
+      },
+      "reward_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "nonzero_sum_condition",
     "named": true,
     "fields": {
@@ -842,11 +884,11 @@
       "required": true,
       "types": [
         {
-          "type": "prob_objective",
+          "type": "non_zero_prob_objective",
           "named": true
         },
         {
-          "type": "reward_objective",
+          "type": "non_zero_reward_objective",
           "named": true
         }
       ]
@@ -1083,22 +1125,6 @@
     }
   },
   {
-    "type": "prob_objective",
-    "named": true,
-    "fields": {
-      "query": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "path_query",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "reachability_reward",
     "named": true,
     "fields": {
@@ -1298,32 +1324,6 @@
     }
   },
   {
-    "type": "reward_objective",
-    "named": true,
-    "fields": {
-      "query": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "reward_query",
-            "named": true
-          }
-        ]
-      },
-      "reward_name": {
-        "multiple": false,
-        "required": true,
-        "types": [
-          {
-            "type": "identifier",
-            "named": true
-          }
-        ]
-      }
-    }
-  },
-  {
     "type": "reward_property",
     "named": true,
     "fields": {
@@ -1392,7 +1392,7 @@
       "required": true,
       "types": [
         {
-          "type": "co_safe_reward",
+          "type": "cumulative_reachability",
           "named": true
         },
         {
@@ -1404,19 +1404,11 @@
           "named": true
         },
         {
-          "type": "next_query",
-          "named": true
-        },
-        {
           "type": "reachability_reward",
           "named": true
         },
         {
           "type": "steady_state_reward",
-          "named": true
-        },
-        {
-          "type": "until_query",
           "named": true
         },
         {

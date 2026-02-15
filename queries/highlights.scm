@@ -71,7 +71,7 @@
 (instantaneous_reward "I" @keyword.operator)
 (cumulative_reward "C" @keyword.operator)
 (reachability_reward "F" @keyword.operator)
-(co_safe_reward "Fc" @keyword.operator)
+(cumulative_reachability "Fc" @keyword.operator)
 (zero_reward "F0" @keyword.operator)
 (steady_state_reward) @keyword.operator
 
@@ -86,9 +86,9 @@
 (reward_property ratio_cost: (identifier) @label)
 
 ; Reward/prob objectives in nonzero-sum
-(prob_objective "P" @keyword.operator)
-(reward_objective "R" @keyword.operator)
-(reward_objective reward_name: (identifier) @label)
+(non_zero_prob_objective "P" @keyword.operator)
+(non_zero_reward_objective "R" @keyword.operator)
+(non_zero_reward_objective reward_name: (identifier) @label)
 
 ; Single objectives in game multi-objective
 (single_objective "P" @keyword.operator)

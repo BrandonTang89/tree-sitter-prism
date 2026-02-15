@@ -208,7 +208,7 @@ Zero-sum - named reward reachability
                 (label_ref name: (identifier))))))))))
 
 ================================================================================
-Zero-sum - co-safe reward
+Zero-sum - cumulative reachability reward
 ================================================================================
 
 <<p2,p5>> Rmin=? [ Fc "fail" ]
@@ -224,7 +224,7 @@ Zero-sum - co-safe reward
       query: (reward_property
         condition: (reward_condition_no_name)
         query: (reward_query
-          (co_safe_reward
+          (cumulative_reachability
             operand: (state_formula
               (expression
                 (label_ref name: (identifier))))))))))
@@ -356,13 +356,13 @@ Nonzero-sum - with threshold
       condition: (nonzero_sum_condition
         threshold: (expression (double_literal)))
       objectives: (objective_list
-        (prob_objective
+        (non_zero_prob_objective
           query: (path_query
             (eventually_query
               operand: (state_formula
                 (expression
                   (label_ref name: (identifier)))))))
-        (prob_objective
+        (non_zero_prob_objective
           query: (path_query
             (eventually_query
               operand: (state_formula
@@ -385,13 +385,13 @@ Nonzero-sum - max query
         coalition2: (identifier))
       condition: (nonzero_sum_condition)
       objectives: (objective_list
-        (prob_objective
+        (non_zero_prob_objective
           query: (path_query
             (eventually_query
               operand: (state_formula
                 (expression
                   (label_ref name: (identifier)))))))
-        (prob_objective
+        (non_zero_prob_objective
           query: (path_query
             (eventually_query
               operand: (state_formula
@@ -415,14 +415,14 @@ Nonzero-sum - with equilibrium type
       equilibrium_type: (equilibrium_type)
       condition: (nonzero_sum_condition)
       objectives: (objective_list
-        (reward_objective
+        (non_zero_reward_objective
           reward_name: (identifier)
           query: (reward_query
             (reachability_reward
               operand: (state_formula
                 (expression
                   (variable name: (identifier)))))))
-        (reward_objective
+        (non_zero_reward_objective
           reward_name: (identifier)
           query: (reward_query
             (reachability_reward

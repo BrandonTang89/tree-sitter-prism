@@ -127,12 +127,12 @@ export default grammar({
     ),
 
     _objective: $ => choice(
-      $.prob_objective,
-      $.reward_objective,
+      $.non_zero_prob_objective,
+      $.non_zero_reward_objective,
     ),
 
     // P[ path_query ] — used inside nonzero-sum properties
-    prob_objective: $ => seq(
+    non_zero_prob_objective: $ => seq(
       'P',
       '[',
       field('query', $.path_query),
@@ -140,7 +140,7 @@ export default grammar({
     ),
 
     // R{"name"}[ reward_query ] — used inside nonzero-sum properties
-    reward_objective: $ => seq(
+    non_zero_reward_objective: $ => seq(
       'R',
       '{', '"', field('reward_name', $.identifier), '"', '}',
       '[',
@@ -149,6 +149,7 @@ export default grammar({
     ),
 
     // ── Game multi-objective properties ──
+    // Multi-objective properties are only for zero-sum properties
     // <<coalition>> ( obj_cond & obj_cond ) or with | ! =>
     game_multi_objective: $ => seq(
       field('coalition', $.coalition),
@@ -257,6 +258,7 @@ export default grammar({
       $.weak_until_query,
       $.release_query,
       // R(path){"r"}>=val [ S ] — path reward inside P>=1 [...]
+      // for almost-sure satisfaction of mean-payoff or ratio reward objectives
       $.path_reward_query,
     ),
 
@@ -367,16 +369,13 @@ export default grammar({
 
     // ── Reward queries ──
     // I=k, C, C<=k, F phi, Fc phi, F0 phi, S
-    // Also co-safe LTL: phi U phi, X phi (syntactic co-safe fragment)
     reward_query: $ => choice(
       $.instantaneous_reward,   // I=k
       $.cumulative_reward,      // C or C<=k
-      $.reachability_reward,    // F phi (and co-safe LTL: F(a & F b))
-      $.co_safe_reward,         // Fc phi (games-specific)
+      $.reachability_reward,    // F phi
+      $.cumulative_reachability,// Fc phi (games-specific)
       $.zero_reward,            // F0 phi (games-specific)
       $.steady_state_reward,    // S
-      $.until_query,            // phi U phi (co-safe LTL reward)
-      $.next_query,             // X phi (co-safe LTL reward)
     ),
 
     instantaneous_reward: $ => seq(
@@ -393,7 +392,7 @@ export default grammar({
       field('operand', $.state_formula),
     ),
 
-    co_safe_reward: $ => seq(
+    cumulative_reachability: $ => seq(
       'Fc',
       field('operand', $.state_formula),
     ),
