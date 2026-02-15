@@ -1,0 +1,84 @@
+// === Zero-sum path properties ===
+
+// X (next)
+<<p1,p2>> Pmin=? [ X !c ]
+
+// F (eventually)
+<<1>> Pmax=? [ F (h=2 & c=0) ]
+
+// F<=k (bounded eventually)
+<<1>> P>=0.84 [ F<=3 c=2 ]
+<<1>> Pmin=? [ F<=3 c=2 ]
+
+// U (until)
+<<1,2,3>> P>0.5 [ "a" U "b" ]
+
+// U<=k (bounded until)
+<<p1,p2>> Pmin=? [ !"c" U<=k "b" ]
+
+// Label refs
+<<4,5>> P>=0.95 [ F<=100 "end" ]
+<<p1,p3>> Pmax=? [ F "end" ]
+
+// Empty coalition
+<<>> R>100 [ F0 "finished" ]
+
+// === Zero-sum reward properties ===
+
+// C<=k (bounded cumulative)
+<<1>> R{"r"}max=? [ C<=k ]
+<<p2>> R{"r"}min=? [ C<=k ]
+
+// C (total cumulative)
+<<1>> R{"r"}>=2.5 [ C ]
+
+// F (reachability reward)
+<<p1>> R{"r"}max=? [ F "success" ]
+
+// Fc (co-safe reward)
+<<p2,p5>> Rmin=? [ Fc "fail" ]
+
+// F0 (zero reward)
+<<>> R>100 [ F0 "finished" ]
+
+// I=k (instantaneous reward)
+<<p1>> R{"r1"}max=? [ I=8 ]
+
+// S (steady-state / mean-payoff)
+<<1>> R{"r"}>=2.5 [ S ]
+
+// Ratio rewards
+<<1>> R{"r"}/{"c"}>=0.5 [ S ]
+
+// R(path) inside P>=1
+<<1>> P>=1 [ R(path){"r"}>=1.5 [ S ] ]
+<<1>> P>=1 [ R(path){"r"}/{"c"}>=0.5 [ S ] ]
+
+// === Nonzero-sum properties ===
+
+// Basic nonzero-sum
+<<p1:p2>> >=1.5(P[ F "goal1" ] + P[ F "goal2" ])
+
+// Nonzero-sum with min=?
+<<p1:p2>>min=?(R{"r1"}[ F "goal1" ] + R{"r2"}[ F "goal2" ])
+
+// Nonzero-sum with max=?
+<<p1:p2>>max=?( P[ F "goal1" ] + P[ F "goal2" ] )
+
+// Nonzero-sum with equilibrium type
+<<p1:p2>>{nash,social}max=?(R{"r1"}[F s] + R{"r2"}[F s])
+<<p1:p2>>{corr,fair}max=?(R{"r1"}[F s] + R{"r2"}[F s])
+
+// Nonzero-sum with complex path queries
+<<p1:p2>>max=?( P[ F "goal1" ] + P[ !"crash2" U<=10 "goal2" ] )
+
+// Nonzero-sum with 3 coalitions
+<<p1:p2,p3>>max=?( P[ F "sent1" ] + P[ F "sent2" & "sent3" ] )
+
+// Nonzero-sum reward objectives
+<<p1:p2>>max=? ( R{"c1"}[ C<=k ] + R{"c2"}[ C<=k ] )
+<<p1:p2>> >=4.5 ( R{"r1"}[ I=8 ] + R{"r2"}[ I=10 ] )
+
+// === Multi-objective ===
+<<1>> ( R{"r1"}>=v1 [ C ] & R{"r2"}>=v2 [ C ] )
+<<1>> ( R{"r1"}/{"c"}<=v1 [ C ] => R{"r2"}/{"c"}>=v2 [ C ] )

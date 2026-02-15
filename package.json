@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "description": "A tree-sitter grammar for the PRISM-games project, focused on CSGs",
   "repository": "https://github.com/tree-sitter/tree-sitter-prism",
+  "type": "module",
   "license": "MIT",
   "author": {
     "name": "BrandonTang89",

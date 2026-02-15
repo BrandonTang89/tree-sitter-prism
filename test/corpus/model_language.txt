@@ -1,0 +1,419 @@
+================================================================================
+Model type declarations
+================================================================================
+
+csg
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration))
+
+================================================================================
+Const declaration - untyped without value
+================================================================================
+
+const k;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    name: (identifier)))
+
+================================================================================
+Const declaration - typed with value
+================================================================================
+
+const int N = 10;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (expression (integer_literal))))
+
+================================================================================
+Const declaration - double
+================================================================================
+
+const double mu = 1/10;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (const_declaration
+    name: (identifier)
+    value: (expression
+      (binary_expression
+        left: (expression (integer_literal))
+        right: (expression (integer_literal))))))
+
+================================================================================
+Global declaration - range
+================================================================================
+
+global g : [1..10];
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (global_declaration
+    (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal)))))
+
+================================================================================
+Global declaration - bool with init
+================================================================================
+
+global b : bool init true;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (global_declaration
+    (variable_declaration
+      name: (identifier)
+      initial_value: (expression (boolean_literal)))))
+
+================================================================================
+Formula declaration
+================================================================================
+
+formula total = a + b;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (formula_declaration
+    name: (identifier)
+    value: (expression
+      (binary_expression
+        left: (expression
+          (variable name: (identifier)))
+        right: (expression
+          (variable name: (identifier)))))))
+
+================================================================================
+Label declaration
+================================================================================
+
+label "safe" = temp<=100 | alarm=true;
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (label_declaration
+    name: (identifier)
+    value: (expression
+      (binary_expression
+        left: (expression
+          (binary_expression
+            left: (expression
+              (variable name: (identifier)))
+            right: (expression (integer_literal))))
+        right: (expression
+          (binary_expression
+            left: (expression
+              (variable name: (identifier)))
+            right: (expression (boolean_literal))))))))
+
+================================================================================
+Player declaration
+================================================================================
+
+player p1 m1, [a1] endplayer
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (player_declaration
+    name: (identifier)
+    owned_module: (identifier)
+    owned_action: (identifier)))
+
+================================================================================
+Module with variables and commands
+================================================================================
+
+csg
+module m1
+  x : [0..2] init 0;
+  [] x=0 -> (x'=1);
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    variables: (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal))
+      initial_value: (expression (integer_literal)))
+    commands: (command
+      actions: (action_list)
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (variable name: (identifier)))
+          right: (expression (integer_literal))))
+      updates: (update_list
+        (expression
+          (parenthesized_expression
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+Module with action labels
+================================================================================
+
+csg
+module server
+  s : [0..1];
+  [serve] s=0 -> (s'=1);
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    variables: (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal)))
+    commands: (command
+      actions: (action_list
+        (identifier))
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (variable name: (identifier)))
+          right: (expression (integer_literal))))
+      updates: (update_list
+        (expression
+          (parenthesized_expression
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+Module rename (instantiation)
+================================================================================
+
+module m2 = m1[r1=r2,p1=p2] endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (module_declaration
+    name: (identifier)
+    instantiated_from: (identifier)
+    (rename
+      from: (identifier)
+      to: (identifier))
+    (rename
+      from: (identifier)
+      to: (identifier))))
+
+================================================================================
+Reward declaration with state and transition formulas
+================================================================================
+
+rewards "r1"
+  true : 1;
+  [a] true : 2;
+endrewards
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (reward_declaration
+    name: (identifier)
+    formulas: (reward_formula
+      (state_reward_formula
+        guard: (expression (boolean_literal))
+        reward: (expression (integer_literal))))
+    formulas: (reward_formula
+      (trans_reward_formula
+        actions: (action_list
+          (identifier))
+        guard: (expression (boolean_literal))
+        reward: (expression (integer_literal))))))
+
+================================================================================
+Variable declaration with endinit
+================================================================================
+
+mdp
+module M2
+  y : [0..2] init y+x=1 endinit;
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    variables: (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal))
+      init_relation: (expression
+        (binary_expression
+          left: (expression
+            (binary_expression
+              left: (expression
+                (variable name: (identifier)))
+              right: (expression
+                (variable name: (identifier)))))
+          right: (expression (integer_literal)))))))
+
+================================================================================
+Command with synchronized actions
+================================================================================
+
+csg
+module recorder
+  win : [0..2];
+  [r1,r2] true -> (win'=0);
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    variables: (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal)))
+    commands: (command
+      actions: (action_list
+        (identifier)
+        (identifier))
+      guard: (expression (boolean_literal))
+      updates: (update_list
+        (expression
+          (parenthesized_expression
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+Command with probabilistic updates
+================================================================================
+
+csg
+module test
+  x : [0..2] init 0;
+  [a] x=1 -> 0.5:(x'=0) + 0.5:(x'=2);
+endmodule
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (model_type_declaration)
+  (module_declaration
+    name: (identifier)
+    variables: (variable_declaration
+      name: (identifier)
+      low: (expression (integer_literal))
+      high: (expression (integer_literal))
+      initial_value: (expression (integer_literal)))
+    commands: (command
+      actions: (action_list
+        (identifier))
+      guard: (expression
+        (binary_expression
+          left: (expression
+            (variable name: (identifier)))
+          right: (expression (integer_literal))))
+      updates: (update_list
+        (expression (double_literal))
+        (expression
+          (parenthesized_expression
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))
+        (expression (double_literal))
+        (expression
+          (parenthesized_expression
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+Reward with multi-action transition
+================================================================================
+
+rewards "utility1"
+  [r1,p2] true : -1;
+  [r1,s2] true : 1;
+endrewards
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (reward_declaration
+    name: (identifier)
+    formulas: (reward_formula
+      (trans_reward_formula
+        actions: (action_list
+          (identifier)
+          (identifier))
+        guard: (expression (boolean_literal))
+        reward: (expression (integer_literal))))
+    formulas: (reward_formula
+      (trans_reward_formula
+        actions: (action_list
+          (identifier)
+          (identifier))
+        guard: (expression (boolean_literal))
+        reward: (expression (integer_literal))))))
+
+================================================================================
+Line comments
+================================================================================
+
+// this is a comment
+csg
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (line_comment)
+  (model_type_declaration))
+
+================================================================================
+Block comments
+================================================================================
+
+/* block comment */
+csg
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (block_comment)
+  (model_type_declaration))

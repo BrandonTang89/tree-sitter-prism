@@ -51,6 +51,83 @@
     "fields": {}
   },
   {
+    "type": "co_safe_reward",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "coalition",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": false,
+      "types": [
+        {
+          "type": "identifier",
+          "named": true
+        },
+        {
+          "type": "integer_literal",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "coalition_pair",
+    "named": true,
+    "fields": {
+      "coalition1": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          }
+        ]
+      },
+      "coalition2": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": ",",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          },
+          {
+            "type": "integer_literal",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "command",
     "named": true,
     "fields": {
@@ -131,6 +208,82 @@
     }
   },
   {
+    "type": "cumulative_reward",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "temporal_bound",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "equilibrium_type",
+    "named": true,
+    "fields": {
+      "criterion": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "fair",
+            "named": false
+          },
+          {
+            "type": "social",
+            "named": false
+          }
+        ]
+      },
+      "equilibrium": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "corr",
+            "named": false
+          },
+          {
+            "type": "nash",
+            "named": false
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "eventually_query",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "temporal_bound",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "expression",
     "named": true,
     "fields": {},
@@ -159,6 +312,10 @@
           "named": true
         },
         {
+          "type": "label_ref",
+          "named": true
+        },
+        {
           "type": "parenthesized_expression",
           "named": true
         },
@@ -175,6 +332,47 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "filter_operator",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "filter_property",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "filter_operator",
+            "named": true
+          }
+        ]
+      },
+      "property": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      },
+      "states": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -234,6 +432,48 @@
     }
   },
   {
+    "type": "game_multi_objective",
+    "named": true,
+    "fields": {
+      "coalition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "coalition",
+            "named": true
+          }
+        ]
+      },
+      "objectives": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "multi_obj_binary",
+            "named": true
+          },
+          {
+            "type": "multi_obj_unary",
+            "named": true
+          },
+          {
+            "type": "single_objective",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "global_declaration",
     "named": true,
     "fields": {},
@@ -246,6 +486,48 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "globally_query",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "temporal_bound",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "instantaneous_reward",
+    "named": true,
+    "fields": {
+      "step": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -268,6 +550,22 @@
         "types": [
           {
             "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "label_ref",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
             "named": true
           }
         ]
@@ -336,6 +634,225 @@
     }
   },
   {
+    "type": "multi_obj_binary",
+    "named": true,
+    "fields": {
+      "left": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "multi_obj_binary",
+            "named": true
+          },
+          {
+            "type": "multi_obj_unary",
+            "named": true
+          },
+          {
+            "type": "single_objective",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": true,
+        "required": true,
+        "types": [
+          {
+            "type": "(",
+            "named": false
+          },
+          {
+            "type": ")",
+            "named": false
+          },
+          {
+            "type": "multi_obj_binary",
+            "named": true
+          },
+          {
+            "type": "multi_obj_unary",
+            "named": true
+          },
+          {
+            "type": "single_objective",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "multi_obj_unary",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "multi_obj_binary",
+          "named": true
+        },
+        {
+          "type": "multi_obj_unary",
+          "named": true
+        },
+        {
+          "type": "single_objective",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "multi_property",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "path_property",
+          "named": true
+        },
+        {
+          "type": "reward_property",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "next_query",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "nonzero_sum_condition",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "nonzero_sum_property",
+    "named": true,
+    "fields": {
+      "coalitions": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "coalition_pair",
+            "named": true
+          }
+        ]
+      },
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "nonzero_sum_condition",
+            "named": true
+          }
+        ]
+      },
+      "equilibrium_type": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "equilibrium_type",
+            "named": true
+          }
+        ]
+      },
+      "objectives": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "objective_list",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "objective_list",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": true,
+      "required": true,
+      "types": [
+        {
+          "type": "prob_objective",
+          "named": true
+        },
+        {
+          "type": "reward_objective",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
     "type": "parenthesized_expression",
     "named": true,
     "fields": {},
@@ -348,6 +865,139 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "path_property",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "prob_condition",
+            "named": true
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "path_query",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "path_query",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "eventually_query",
+          "named": true
+        },
+        {
+          "type": "globally_query",
+          "named": true
+        },
+        {
+          "type": "next_query",
+          "named": true
+        },
+        {
+          "type": "path_reward_query",
+          "named": true
+        },
+        {
+          "type": "release_query",
+          "named": true
+        },
+        {
+          "type": "until_query",
+          "named": true
+        },
+        {
+          "type": "weak_until_query",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "path_reward_query",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "reward_query",
+            "named": true
+          }
+        ]
+      },
+      "ratio_cost": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "reward_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -395,6 +1045,112 @@
     }
   },
   {
+    "type": "prob_condition",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "prob_objective",
+    "named": true,
+    "fields": {
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "path_query",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "reachability_reward",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "release_query",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "temporal_bound",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "rename",
     "named": true,
     "fields": {
@@ -414,6 +1170,82 @@
         "types": [
           {
             "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "reward_condition",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "reward_condition_no_name",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
             "named": true
           }
         ]
@@ -466,6 +1298,207 @@
     }
   },
   {
+    "type": "reward_objective",
+    "named": true,
+    "fields": {
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "reward_query",
+            "named": true
+          }
+        ]
+      },
+      "reward_name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "reward_property",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "reward_condition",
+            "named": true
+          },
+          {
+            "type": "reward_condition_no_name",
+            "named": true
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "reward_query",
+            "named": true
+          }
+        ]
+      },
+      "ratio_cost": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "reward_index": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "reward_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "reward_query",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "co_safe_reward",
+          "named": true
+        },
+        {
+          "type": "cumulative_reward",
+          "named": true
+        },
+        {
+          "type": "instantaneous_reward",
+          "named": true
+        },
+        {
+          "type": "next_query",
+          "named": true
+        },
+        {
+          "type": "reachability_reward",
+          "named": true
+        },
+        {
+          "type": "steady_state_reward",
+          "named": true
+        },
+        {
+          "type": "until_query",
+          "named": true
+        },
+        {
+          "type": "zero_reward",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "single_objective",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "path_query",
+            "named": true
+          },
+          {
+            "type": "reward_query",
+            "named": true
+          }
+        ]
+      },
+      "ratio_cost": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "reward_name": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "source_file",
     "named": true,
     "root": true,
@@ -505,6 +1538,57 @@
         {
           "type": "reward_declaration",
           "named": true
+        },
+        {
+          "type": "state_formula",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "state_formula",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "expression",
+          "named": true
+        },
+        {
+          "type": "filter_property",
+          "named": true
+        },
+        {
+          "type": "game_multi_objective",
+          "named": true
+        },
+        {
+          "type": "multi_property",
+          "named": true
+        },
+        {
+          "type": "nonzero_sum_property",
+          "named": true
+        },
+        {
+          "type": "path_property",
+          "named": true
+        },
+        {
+          "type": "reward_property",
+          "named": true
+        },
+        {
+          "type": "steady_state_property",
+          "named": true
+        },
+        {
+          "type": "zero_sum_property",
+          "named": true
         }
       ]
     }
@@ -526,6 +1610,111 @@
       "reward": {
         "multiple": false,
         "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "steady_state_condition",
+    "named": true,
+    "fields": {
+      "operator": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "<",
+            "named": false
+          },
+          {
+            "type": "<=",
+            "named": false
+          },
+          {
+            "type": ">",
+            "named": false
+          },
+          {
+            "type": ">=",
+            "named": false
+          }
+        ]
+      },
+      "threshold": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "steady_state_property",
+    "named": true,
+    "fields": {
+      "condition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "steady_state_condition",
+            "named": true
+          }
+        ]
+      },
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "steady_state_reward",
+    "named": true,
+    "fields": {}
+  },
+  {
+    "type": "temporal_bound",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "high": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "low": {
+        "multiple": false,
+        "required": false,
         "types": [
           {
             "type": "expression",
@@ -620,6 +1809,42 @@
           "named": true
         }
       ]
+    }
+  },
+  {
+    "type": "until_query",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "temporal_bound",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
     }
   },
   {
@@ -728,6 +1953,88 @@
     }
   },
   {
+    "type": "weak_until_query",
+    "named": true,
+    "fields": {
+      "bound": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "temporal_bound",
+            "named": true
+          }
+        ]
+      },
+      "left": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      },
+      "right": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "zero_reward",
+    "named": true,
+    "fields": {
+      "operand": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "state_formula",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "zero_sum_property",
+    "named": true,
+    "fields": {
+      "coalition": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "coalition",
+            "named": true
+          }
+        ]
+      },
+      "query": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "path_property",
+            "named": true
+          },
+          {
+            "type": "reward_property",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "!",
     "named": false
   },
@@ -796,6 +2103,10 @@
     "named": false
   },
   {
+    "type": "<<",
+    "named": false
+  },
+  {
     "type": "<=",
     "named": false
   },
@@ -812,6 +2123,10 @@
     "named": false
   },
   {
+    "type": "=?",
+    "named": false
+  },
+  {
     "type": ">",
     "named": false
   },
@@ -820,7 +2135,87 @@
     "named": false
   },
   {
+    "type": ">>",
+    "named": false
+  },
+  {
     "type": "?",
+    "named": false
+  },
+  {
+    "type": "C",
+    "named": false
+  },
+  {
+    "type": "F",
+    "named": false
+  },
+  {
+    "type": "F0",
+    "named": false
+  },
+  {
+    "type": "Fc",
+    "named": false
+  },
+  {
+    "type": "G",
+    "named": false
+  },
+  {
+    "type": "I",
+    "named": false
+  },
+  {
+    "type": "P",
+    "named": false
+  },
+  {
+    "type": "P=?",
+    "named": false
+  },
+  {
+    "type": "Pmax=?",
+    "named": false
+  },
+  {
+    "type": "Pmin=?",
+    "named": false
+  },
+  {
+    "type": "R",
+    "named": false
+  },
+  {
+    "type": "R=?",
+    "named": false
+  },
+  {
+    "type": "Rmax=?",
+    "named": false
+  },
+  {
+    "type": "Rmin=?",
+    "named": false
+  },
+  {
+    "type": "S",
+    "named": false
+  },
+  {
+    "type": "S=?",
+    "named": false
+  },
+  {
+    "type": "U",
+    "named": false
+  },
+  {
+    "type": "W",
+    "named": false
+  },
+  {
+    "type": "X",
     "named": false
   },
   {
@@ -833,6 +2228,18 @@
   },
   {
     "type": "^",
+    "named": false
+  },
+  {
+    "type": "argmax",
+    "named": false
+  },
+  {
+    "type": "argmin",
+    "named": false
+  },
+  {
+    "type": "avg",
     "named": false
   },
   {
@@ -850,6 +2257,14 @@
   },
   {
     "type": "const",
+    "named": false
+  },
+  {
+    "type": "corr",
+    "named": false
+  },
+  {
+    "type": "count",
     "named": false
   },
   {
@@ -889,11 +2304,31 @@
     "named": false
   },
   {
+    "type": "exists",
+    "named": false
+  },
+  {
+    "type": "fair",
+    "named": false
+  },
+  {
     "type": "false",
     "named": false
   },
   {
+    "type": "filter",
+    "named": false
+  },
+  {
+    "type": "first",
+    "named": false
+  },
+  {
     "type": "floor",
+    "named": false
+  },
+  {
+    "type": "forall",
     "named": false
   },
   {
@@ -938,11 +2373,19 @@
     "named": false
   },
   {
+    "type": "max=?",
+    "named": false
+  },
+  {
     "type": "mdp",
     "named": false
   },
   {
     "type": "min",
+    "named": false
+  },
+  {
+    "type": "min=?",
     "named": false
   },
   {
@@ -954,11 +2397,35 @@
     "named": false
   },
   {
+    "type": "multi",
+    "named": false
+  },
+  {
+    "type": "nash",
+    "named": false
+  },
+  {
+    "type": "path",
+    "named": false
+  },
+  {
     "type": "player",
     "named": false
   },
   {
     "type": "pow",
+    "named": false
+  },
+  {
+    "type": "print",
+    "named": false
+  },
+  {
+    "type": "printall",
+    "named": false
+  },
+  {
+    "type": "range",
     "named": false
   },
   {
@@ -974,11 +2441,31 @@
     "named": false
   },
   {
+    "type": "social",
+    "named": false
+  },
+  {
+    "type": "state",
+    "named": false
+  },
+  {
+    "type": "sum",
+    "named": false
+  },
+  {
     "type": "true",
     "named": false
   },
   {
+    "type": "{",
+    "named": false
+  },
+  {
     "type": "|",
+    "named": false
+  },
+  {
+    "type": "}",
     "named": false
   }
 ]

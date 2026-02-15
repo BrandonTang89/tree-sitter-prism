@@ -1,0 +1,487 @@
+================================================================================
+Zero-sum - next query
+================================================================================
+
+<<p1,p2>> Pmin=? [ X !c ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (identifier)
+        (identifier))
+      query: (path_property
+        condition: (prob_condition)
+        query: (path_query
+          (next_query
+            operand: (state_formula
+              (expression
+                (unary_expression
+                  (expression
+                    (variable
+                      name: (identifier))))))))))))
+
+================================================================================
+Zero-sum - eventually with expression
+================================================================================
+
+<<1>> Pmax=? [ F (h=2 & c=0) ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (path_property
+        condition: (prob_condition)
+        query: (path_query
+          (eventually_query
+            operand: (state_formula
+              (expression
+                (parenthesized_expression
+                  (expression
+                    (binary_expression
+                      left: (expression
+                        (binary_expression
+                          left: (expression
+                            (variable name: (identifier)))
+                          right: (expression (integer_literal))))
+                      right: (expression
+                        (binary_expression
+                          left: (expression
+                            (variable name: (identifier)))
+                          right: (expression (integer_literal)))))))))))))))
+
+================================================================================
+Zero-sum - bounded eventually
+================================================================================
+
+<<1>> P>=0.84 [ F<=3 c=2 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (path_property
+        condition: (prob_condition
+          threshold: (expression (double_literal)))
+        query: (path_query
+          (eventually_query
+            bound: (temporal_bound
+              bound: (expression (integer_literal)))
+            operand: (state_formula
+              (expression
+                (binary_expression
+                  left: (expression
+                    (variable name: (identifier)))
+                  right: (expression (integer_literal)))))))))))
+
+================================================================================
+Zero-sum - until with label refs
+================================================================================
+
+<<1,2,3>> P>0.5 [ "a" U "b" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal)
+        (integer_literal)
+        (integer_literal))
+      query: (path_property
+        condition: (prob_condition
+          threshold: (expression (double_literal)))
+        query: (path_query
+          (until_query
+            left: (state_formula
+              (expression
+                (label_ref name: (identifier))))
+            right: (state_formula
+              (expression
+                (label_ref name: (identifier))))))))))
+
+================================================================================
+Zero-sum - bounded until with negated label
+================================================================================
+
+<<p1,p2>> Pmin=? [ !"c" U<=k "b" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (identifier)
+        (identifier))
+      query: (path_property
+        condition: (prob_condition)
+        query: (path_query
+          (until_query
+            left: (state_formula
+              (expression
+                (unary_expression
+                  (expression
+                    (label_ref name: (identifier))))))
+            bound: (temporal_bound
+              bound: (expression
+                (variable name: (identifier))))
+            right: (state_formula
+              (expression
+                (label_ref name: (identifier))))))))))
+
+================================================================================
+Zero-sum - empty coalition with zero reward
+================================================================================
+
+<<>> R>100 [ F0 "finished" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition)
+      query: (reward_property
+        condition: (reward_condition_no_name
+          threshold: (expression (integer_literal)))
+        query: (reward_query
+          (zero_reward
+            operand: (state_formula
+              (expression
+                (label_ref name: (identifier))))))))))
+
+================================================================================
+Zero-sum - named reward with cumulative bound
+================================================================================
+
+<<1>> R{"r"}max=? [ C<=k ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (reward_property
+        reward_index: (expression
+          (label_ref name: (identifier)))
+        condition: (reward_condition)
+        query: (reward_query
+          (cumulative_reward
+            bound: (temporal_bound
+              bound: (expression
+                (variable name: (identifier))))))))))
+
+================================================================================
+Zero-sum - named reward reachability
+================================================================================
+
+<<p1>> R{"r"}max=? [ F "success" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (identifier))
+      query: (reward_property
+        reward_index: (expression
+          (label_ref name: (identifier)))
+        condition: (reward_condition)
+        query: (reward_query
+          (reachability_reward
+            operand: (state_formula
+              (expression
+                (label_ref name: (identifier))))))))))
+
+================================================================================
+Zero-sum - co-safe reward
+================================================================================
+
+<<p2,p5>> Rmin=? [ Fc "fail" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (identifier)
+        (identifier))
+      query: (reward_property
+        condition: (reward_condition_no_name)
+        query: (reward_query
+          (co_safe_reward
+            operand: (state_formula
+              (expression
+                (label_ref name: (identifier))))))))))
+
+================================================================================
+Zero-sum - instantaneous reward
+================================================================================
+
+<<p1>> R{"r1"}max=? [ I=8 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (identifier))
+      query: (reward_property
+        reward_index: (expression
+          (label_ref name: (identifier)))
+        condition: (reward_condition)
+        query: (reward_query
+          (instantaneous_reward
+            step: (expression (integer_literal))))))))
+
+================================================================================
+Zero-sum - steady state reward
+================================================================================
+
+<<1>> R{"r"}>=2.5 [ S ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (reward_property
+        reward_index: (expression
+          (label_ref name: (identifier)))
+        condition: (reward_condition
+          threshold: (expression (double_literal)))
+        query: (reward_query
+          (steady_state_reward))))))
+
+================================================================================
+Zero-sum - ratio reward
+================================================================================
+
+<<1>> R{"r"}/{"c"}>=0.5 [ S ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (reward_property
+        reward_name: (identifier)
+        ratio_cost: (identifier)
+        condition: (reward_condition
+          threshold: (expression (double_literal)))
+        query: (reward_query
+          (steady_state_reward))))))
+
+================================================================================
+Zero-sum - path reward inside P
+================================================================================
+
+<<1>> P>=1 [ R(path){"r"}>=1.5 [ S ] ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (path_property
+        condition: (prob_condition
+          threshold: (expression (integer_literal)))
+        query: (path_query
+          (path_reward_query
+            reward_name: (identifier)
+            threshold: (expression (double_literal))
+            query: (reward_query
+              (steady_state_reward))))))))
+
+================================================================================
+Zero-sum - path reward with ratio
+================================================================================
+
+<<1>> P>=1 [ R(path){"r"}/{"c"}>=0.5 [ S ] ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (zero_sum_property
+      coalition: (coalition
+        (integer_literal))
+      query: (path_property
+        condition: (prob_condition
+          threshold: (expression (integer_literal)))
+        query: (path_query
+          (path_reward_query
+            reward_name: (identifier)
+            ratio_cost: (identifier)
+            threshold: (expression (double_literal))
+            query: (reward_query
+              (steady_state_reward))))))))
+
+================================================================================
+Nonzero-sum - with threshold
+================================================================================
+
+<<p1:p2>> >=1.5(P[ F "goal1" ] + P[ F "goal2" ])
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (nonzero_sum_property
+      coalitions: (coalition_pair
+        coalition1: (identifier)
+        coalition2: (identifier))
+      condition: (nonzero_sum_condition
+        threshold: (expression (double_literal)))
+      objectives: (objective_list
+        (prob_objective
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier)))))))
+        (prob_objective
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier)))))))))))
+
+================================================================================
+Nonzero-sum - max query
+================================================================================
+
+<<p1:p2>>max=?(P[ F "goal1" ] + P[ F "goal2" ])
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (nonzero_sum_property
+      coalitions: (coalition_pair
+        coalition1: (identifier)
+        coalition2: (identifier))
+      condition: (nonzero_sum_condition)
+      objectives: (objective_list
+        (prob_objective
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier)))))))
+        (prob_objective
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier)))))))))))
+
+================================================================================
+Nonzero-sum - with equilibrium type
+================================================================================
+
+<<p1:p2>>{nash,social}max=?(R{"r1"}[F s] + R{"r2"}[F s])
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (nonzero_sum_property
+      coalitions: (coalition_pair
+        coalition1: (identifier)
+        coalition2: (identifier))
+      equilibrium_type: (equilibrium_type)
+      condition: (nonzero_sum_condition)
+      objectives: (objective_list
+        (reward_objective
+          reward_name: (identifier)
+          query: (reward_query
+            (reachability_reward
+              operand: (state_formula
+                (expression
+                  (variable name: (identifier)))))))
+        (reward_objective
+          reward_name: (identifier)
+          query: (reward_query
+            (reachability_reward
+              operand: (state_formula
+                (expression
+                  (variable name: (identifier)))))))))))
+
+================================================================================
+Game multi-objective - conjunction
+================================================================================
+
+<<1>> ( R{"r1"}>=v1 [ C ] & R{"r2"}>=v2 [ C ] )
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (game_multi_objective
+      coalition: (coalition
+        (integer_literal))
+      objectives: (multi_obj_binary
+        left: (single_objective
+          reward_name: (identifier)
+          threshold: (expression
+            (variable name: (identifier)))
+          query: (reward_query
+            (cumulative_reward)))
+        right: (single_objective
+          reward_name: (identifier)
+          threshold: (expression
+            (variable name: (identifier)))
+          query: (reward_query
+            (cumulative_reward)))))))
+
+================================================================================
+Game multi-objective - ratio with implication
+================================================================================
+
+<<1>> ( R{"r1"}/{"c"}<=v1 [ C ] => R{"r2"}/{"c"}>=v2 [ C ] )
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (game_multi_objective
+      coalition: (coalition
+        (integer_literal))
+      objectives: (multi_obj_binary
+        left: (single_objective
+          reward_name: (identifier)
+          ratio_cost: (identifier)
+          threshold: (expression
+            (variable name: (identifier)))
+          query: (reward_query
+            (cumulative_reward)))
+        right: (single_objective
+          reward_name: (identifier)
+          ratio_cost: (identifier)
+          threshold: (expression
+            (variable name: (identifier)))
+          query: (reward_query
+            (cumulative_reward)))))))

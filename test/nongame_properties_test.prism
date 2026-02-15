@@ -1,0 +1,136 @@
+// ═══════════════════════════════════════════
+// Non-game property specification tests
+// ═══════════════════════════════════════════
+
+// === P operator (standalone, no coalition) ===
+
+// Quantitative
+P=? [ F "error" ]
+P=? [ !proc2_terminate U proc1_terminate ]
+
+// With min/max for MDPs
+Pmin=? [ F "error" ]
+Pmax=? [ F<=T messages_lost > 10 ]
+
+// Boolean-valued (bound)
+P>=1 [ F "terminate" ]
+P<0.1 [ F<=100 num_errors > 5 ]
+P>0.5 [ z<2 U z=2 ]
+P<0.01 [ X y=1 ]
+P>=0.98 [ y<4 U<=7 y=4 ]
+P>=0.98 [ F<=7 y=4 ]
+
+// === Basic LTL path operators in path queries ===
+// (No nested LTL — F, G, X, U, W are only allowed directly in path queries)
+
+P>=0.99 [ G z<10 ]
+P>=0.98 [ G<=7 y=4 ]
+P>=0.98 [ G<=(2*k+1) y=4 ]
+
+// === W (weak until) operator ===
+P>0.5 [ z<2 W z=2 ]
+
+// === Bounded variants ===
+// Lower bound >=
+P>=0.98 [ F>=10 y=4 ]
+
+// Interval [t1,t2]
+P>=0.98 [ F[10,20] y=4 ]
+
+// Exact time point =t
+P=? [ F=10 y=6 ]
+
+// Strict bounds
+P>=0.25 [ y<=1 U<=6.5 y>1 ]
+
+// === S operator (steady-state) ===
+
+S<0.05 [ queue_size / max_size > 0.75 ]
+S=? [ queue_size / max_size > 0.75 ]
+S<0.01 [ num_sensors < min_sensors ]
+
+// === R operator (rewards, standalone) ===
+
+// Reachability reward
+R<=9.5 [ F z=2 ]
+R=? [ F z=2 ]
+
+// Co-safe reward
+R=? [ F "goal" ]
+Rmin=? [ loc!=4 U loc=1 ]
+
+// Cumulative reward
+R=? [ C<=15.5 ]
+R=? [ C ]
+
+// Instantaneous reward
+R<4.4 [ I=100 ]
+
+// Steady-state reward
+R<=0.7 [ S ]
+
+// Named reward structure
+R{"num_failures"}=? [ C<=10.0 ]
+R{"time"}=? [ F step=final ]
+
+// Indexed reward structure
+R{2}=? [ F step=final ]
+
+// Reward with min/max (MDP)
+Rmin=? [ F "done" ]
+Rmax=? [ C<=100 ]
+
+// === multi() for non-game multi-objective ===
+
+// Achievability query
+multi(P<0.01 [ F "error1" ], P<0.02 [ F "error2" ])
+
+// Numerical query
+multi(Pmin=? [ F "error1" ], P<0.02 [ F "error2" ])
+
+// Pareto query
+multi(Pmin=? [ F "error1" ], Pmin=? [ F "error2" ])
+
+// Simple objectives
+multi(Pmax=? [ G "good1" ], P>=0.9 [ F "good2" ])
+
+// More than 2 objectives
+multi(Pmax=? [ G "good1" ], P>=0.9 [ F "good2" ], P>=0.95 [ F "good3" ])
+
+// Reward objectives with multi
+multi(R{"time"}min=? [ C ], R{"energy"}<=1.45 [ C ])
+
+// Time-bounded multi
+multi(R{"power"}min=? [ C<=k ], R{"queue"}<=r [ C<=k ])
+
+// === filter() ===
+
+// Basic filter
+filter(max, P=? [ F "error" ], x=0)
+
+// Forall filter
+filter(forall, P>=1 [ F "done" ])
+
+// Forall with label states
+filter(forall, P>=1 [ F "done" ], "ready")
+
+// Print filter
+filter(print, P=? [ F "error" ], x>2)
+
+// State filter
+filter(state, P=? [ F "error" ], x=2 & y=3)
+
+// Nested filters
+filter(print, filter(argmax, P=? [ F "error" ]))
+
+// Filter with avg
+filter(avg, P=? [ F "error" ], "init")
+
+// Filter with range
+filter(range, P=? [ F count=10 ], count=0)
+
+// Filter with S operator
+filter(state, S=? [ queue_size > 10 ], "init")
+
+// Filter with R operator
+filter(min, R=? [ F "done" ], x=0)

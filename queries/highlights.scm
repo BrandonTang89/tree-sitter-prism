@@ -27,6 +27,119 @@
 ("bool") @type.builtin
 
 ; ──────────────────────────────────────────
+; Property specification keywords
+; ──────────────────────────────────────────
+
+; Probability conditions: P=?, Pmin=?, Pmax=?, P>=val
+(prob_condition "Pmin=?" @keyword.operator)
+(prob_condition "Pmax=?" @keyword.operator)
+(prob_condition "P=?" @keyword.operator)
+(prob_condition "P" @keyword.operator)
+(prob_condition operator: _ @operator)
+
+; Steady-state conditions: S=?, S>=val
+(steady_state_condition "S=?" @keyword.operator)
+(steady_state_condition "S" @keyword.operator)
+(steady_state_condition operator: _ @operator)
+
+; Reward conditions (unnamed): Rmin=?, Rmax=?, R=?, R>=val
+(reward_condition_no_name "Rmin=?" @keyword.operator)
+(reward_condition_no_name "Rmax=?" @keyword.operator)
+(reward_condition_no_name "R=?" @keyword.operator)
+(reward_condition_no_name "R" @keyword.operator)
+(reward_condition_no_name operator: _ @operator)
+
+; Reward conditions (named/indexed): min=?, max=?, =?, >=val
+(reward_condition "min=?" @keyword.operator)
+(reward_condition "max=?" @keyword.operator)
+(reward_condition "=?" @keyword.operator)
+(reward_condition operator: _ @operator)
+
+; Nonzero-sum conditions
+(nonzero_sum_condition "min=?" @keyword.operator)
+(nonzero_sum_condition "max=?" @keyword.operator)
+(nonzero_sum_condition operator: _ @operator)
+
+; Path query temporal operators
+(next_query "X" @keyword.operator)
+(eventually_query "F" @keyword.operator)
+(globally_query "G" @keyword.operator)
+(until_query "U" @keyword.operator)
+(weak_until_query "W" @keyword.operator)
+
+; Reward query operators
+(instantaneous_reward "I" @keyword.operator)
+(cumulative_reward "C" @keyword.operator)
+(reachability_reward "F" @keyword.operator)
+(co_safe_reward "Fc" @keyword.operator)
+(zero_reward "F0" @keyword.operator)
+(steady_state_reward) @keyword.operator
+
+; Path reward query
+(path_reward_query "R" @keyword.operator)
+(path_reward_query "path" @keyword.operator)
+(path_reward_query operator: _ @operator)
+
+; Named reward structures in properties
+(reward_property "R" @keyword.operator)
+(reward_property reward_name: (identifier) @label)
+(reward_property ratio_cost: (identifier) @label)
+
+; Reward/prob objectives in nonzero-sum
+(prob_objective "P" @keyword.operator)
+(reward_objective "R" @keyword.operator)
+(reward_objective reward_name: (identifier) @label)
+
+; Single objectives in game multi-objective
+(single_objective "P" @keyword.operator)
+(single_objective "R" @keyword.operator)
+(single_objective reward_name: (identifier) @label)
+(single_objective ratio_cost: (identifier) @label)
+(single_objective operator: _ @operator)
+
+; Path reward query reward names
+(path_reward_query reward_name: (identifier) @label)
+(path_reward_query ratio_cost: (identifier) @label)
+
+; Temporal bounds
+(temporal_bound "<=" @operator)
+(temporal_bound ">=" @operator)
+(temporal_bound "<" @operator)
+(temporal_bound ">" @operator)
+(temporal_bound "=" @operator)
+
+; Coalitions
+(coalition "<<" @punctuation.special)
+(coalition ">>" @punctuation.special)
+(coalition (identifier) @variable.parameter)
+
+(coalition_pair "<<" @punctuation.special)
+(coalition_pair ">>" @punctuation.special)
+(coalition_pair ":" @punctuation.special)
+(coalition_pair coalition1: (identifier) @variable.parameter)
+(coalition_pair coalition2: (identifier) @variable.parameter)
+
+; Equilibrium type
+(equilibrium_type equilibrium: _ @keyword)
+(equilibrium_type criterion: _ @keyword)
+
+; Multi-objective operators
+(multi_obj_binary "&" @operator)
+(multi_obj_binary "|" @operator)
+(multi_obj_binary "=>" @operator)
+(multi_obj_unary "!" @operator)
+
+; multi() keyword
+(multi_property "multi" @function.builtin)
+
+; filter() keyword and operator
+(filter_property "filter" @function.builtin)
+(filter_operator) @keyword.operator
+
+; Label references: "name" in property contexts
+(label_ref name: (identifier) @label)
+
+; ──────────────────────────────────────────
 ; Literals
 ; ──────────────────────────────────────────
 

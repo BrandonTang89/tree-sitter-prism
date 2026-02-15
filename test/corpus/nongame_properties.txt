@@ -1,0 +1,598 @@
+================================================================================
+P operator - quantitative query
+================================================================================
+
+P=? [ F "error" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition)
+      query: (path_query
+        (eventually_query
+          operand: (state_formula
+            (expression
+              (label_ref name: (identifier)))))))))
+
+================================================================================
+P operator - with min/max
+================================================================================
+
+Pmin=? [ F "error" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition)
+      query: (path_query
+        (eventually_query
+          operand: (state_formula
+            (expression
+              (label_ref name: (identifier)))))))))
+
+================================================================================
+P operator - boolean bound
+================================================================================
+
+P>=1 [ F "terminate" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (integer_literal)))
+      query: (path_query
+        (eventually_query
+          operand: (state_formula
+            (expression
+              (label_ref name: (identifier)))))))))
+
+================================================================================
+P operator - globally query
+================================================================================
+
+P>=0.99 [ G z<10 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (double_literal)))
+      query: (path_query
+        (globally_query
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+P operator - weak until
+================================================================================
+
+P>0.5 [ z<2 W z=2 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (double_literal)))
+      query: (path_query
+        (weak_until_query
+          left: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal)))))
+          right: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+P operator - bounded eventually
+================================================================================
+
+P>=0.98 [ F<=7 y=4 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (double_literal)))
+      query: (path_query
+        (eventually_query
+          bound: (temporal_bound
+            bound: (expression (integer_literal)))
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+P operator - bounded globally
+================================================================================
+
+P>=0.98 [ G<=7 y=4 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (double_literal)))
+      query: (path_query
+        (globally_query
+          bound: (temporal_bound
+            bound: (expression (integer_literal)))
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+P operator - until with bound
+================================================================================
+
+P>=0.98 [ y<4 U<=7 y=4 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (double_literal)))
+      query: (path_query
+        (until_query
+          left: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal)))))
+          bound: (temporal_bound
+            bound: (expression (integer_literal)))
+          right: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+P operator - next
+================================================================================
+
+P<0.01 [ X y=1 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (path_property
+      condition: (prob_condition
+        threshold: (expression (double_literal)))
+      query: (path_query
+        (next_query
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+S operator - steady state with bound
+================================================================================
+
+S<0.05 [ queue_size > 0 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (steady_state_property
+      condition: (steady_state_condition
+        threshold: (expression (double_literal)))
+      operand: (state_formula
+        (expression
+          (binary_expression
+            left: (expression
+              (variable name: (identifier)))
+            right: (expression (integer_literal))))))))
+
+================================================================================
+S operator - quantitative query
+================================================================================
+
+S=? [ queue_size > 10 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (steady_state_property
+      condition: (steady_state_condition)
+      operand: (state_formula
+        (expression
+          (binary_expression
+            left: (expression
+              (variable name: (identifier)))
+            right: (expression (integer_literal))))))))
+
+================================================================================
+R operator - unnamed reachability
+================================================================================
+
+R=? [ F z=2 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      condition: (reward_condition_no_name)
+      query: (reward_query
+        (reachability_reward
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+R operator - unnamed with bound
+================================================================================
+
+R<=9.5 [ F z=2 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      condition: (reward_condition_no_name
+        threshold: (expression (double_literal)))
+      query: (reward_query
+        (reachability_reward
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal))))))))))
+
+================================================================================
+R operator - min/max for MDP
+================================================================================
+
+Rmin=? [ F "done" ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      condition: (reward_condition_no_name)
+      query: (reward_query
+        (reachability_reward
+          operand: (state_formula
+            (expression
+              (label_ref name: (identifier)))))))))
+
+================================================================================
+R operator - unnamed cumulative
+================================================================================
+
+R=? [ C<=15.5 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      condition: (reward_condition_no_name)
+      query: (reward_query
+        (cumulative_reward
+          bound: (temporal_bound
+            bound: (expression (double_literal))))))))
+
+================================================================================
+R operator - unnamed instantaneous
+================================================================================
+
+R<4.4 [ I=100 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      condition: (reward_condition_no_name
+        threshold: (expression (double_literal)))
+      query: (reward_query
+        (instantaneous_reward
+          step: (expression (integer_literal)))))))
+
+================================================================================
+R operator - unnamed steady state
+================================================================================
+
+R<=0.7 [ S ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      condition: (reward_condition_no_name
+        threshold: (expression (double_literal)))
+      query: (reward_query
+        (steady_state_reward)))))
+
+================================================================================
+R operator - named reward
+================================================================================
+
+R{"num_failures"}=? [ C<=10.0 ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      reward_index: (expression
+        (label_ref name: (identifier)))
+      condition: (reward_condition)
+      query: (reward_query
+        (cumulative_reward
+          bound: (temporal_bound
+            bound: (expression (double_literal))))))))
+
+================================================================================
+R operator - indexed reward
+================================================================================
+
+R{2}=? [ F step=final ]
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (reward_property
+      reward_index: (expression (integer_literal))
+      condition: (reward_condition)
+      query: (reward_query
+        (reachability_reward
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression
+                  (variable name: (identifier)))))))))))
+
+================================================================================
+Multi-objective - achievability
+================================================================================
+
+multi(P<0.01 [ F "error1" ], P<0.02 [ F "error2" ])
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (multi_property
+      (path_property
+        condition: (prob_condition
+          threshold: (expression (double_literal)))
+        query: (path_query
+          (eventually_query
+            operand: (state_formula
+              (expression
+                (label_ref name: (identifier)))))))
+      (path_property
+        condition: (prob_condition
+          threshold: (expression (double_literal)))
+        query: (path_query
+          (eventually_query
+            operand: (state_formula
+              (expression
+                (label_ref name: (identifier))))))))))
+
+================================================================================
+Multi-objective - reward objectives
+================================================================================
+
+multi(R{"time"}min=? [ C ], R{"energy"}<=1.45 [ C ])
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (multi_property
+      (reward_property
+        reward_index: (expression
+          (label_ref name: (identifier)))
+        condition: (reward_condition)
+        query: (reward_query
+          (cumulative_reward)))
+      (reward_property
+        reward_name: (identifier)
+        condition: (reward_condition
+          threshold: (expression (double_literal)))
+        query: (reward_query
+          (cumulative_reward))))))
+
+================================================================================
+Filter - basic with states
+================================================================================
+
+filter(max, P=? [ F "error" ], x=0)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (filter_property
+      operator: (filter_operator)
+      property: (state_formula
+        (path_property
+          condition: (prob_condition)
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier))))))))
+      states: (state_formula
+        (expression
+          (binary_expression
+            left: (expression
+              (variable name: (identifier)))
+            right: (expression (integer_literal))))))))
+
+================================================================================
+Filter - forall without states
+================================================================================
+
+filter(forall, P>=1 [ F "done" ])
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (filter_property
+      operator: (filter_operator)
+      property: (state_formula
+        (path_property
+          condition: (prob_condition
+            threshold: (expression (integer_literal)))
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier)))))))))))
+
+================================================================================
+Filter - forall with label states
+================================================================================
+
+filter(forall, P>=1 [ F "done" ], "ready")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (filter_property
+      operator: (filter_operator)
+      property: (state_formula
+        (path_property
+          condition: (prob_condition
+            threshold: (expression (integer_literal)))
+          query: (path_query
+            (eventually_query
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier))))))))
+      states: (state_formula
+        (expression
+          (label_ref name: (identifier)))))))
+
+================================================================================
+Filter - nested
+================================================================================
+
+filter(print, filter(argmax, P=? [ F "error" ]))
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (filter_property
+      operator: (filter_operator)
+      property: (state_formula
+        (filter_property
+          operator: (filter_operator)
+          property: (state_formula
+            (path_property
+              condition: (prob_condition)
+              query: (path_query
+                (eventually_query
+                  operand: (state_formula
+                    (expression
+                      (label_ref name: (identifier)))))))))))))
+
+================================================================================
+Filter - with S operator
+================================================================================
+
+filter(state, S=? [ queue_size > 10 ], "init")
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (filter_property
+      operator: (filter_operator)
+      property: (state_formula
+        (steady_state_property
+          condition: (steady_state_condition)
+          operand: (state_formula
+            (expression
+              (binary_expression
+                left: (expression
+                  (variable name: (identifier)))
+                right: (expression (integer_literal)))))))
+      states: (state_formula
+        (expression
+          (label_ref name: (identifier)))))))
+
+================================================================================
+Filter - with R operator
+================================================================================
+
+filter(min, R=? [ F "done" ], x=0)
+
+--------------------------------------------------------------------------------
+
+(source_file
+  (state_formula
+    (filter_property
+      operator: (filter_operator)
+      property: (state_formula
+        (reward_property
+          condition: (reward_condition_no_name)
+          query: (reward_query
+            (reachability_reward
+              operand: (state_formula
+                (expression
+                  (label_ref name: (identifier))))))))
+      states: (state_formula
+        (expression
+          (binary_expression
+            left: (expression
+              (variable name: (identifier)))
+            right: (expression (integer_literal))))))))
