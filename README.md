@@ -2,12 +2,12 @@
 
 A [Tree-sitter](https://tree-sitter.github.io/tree-sitter/index.html) grammar for the [PRISM](https://www.prismmodelchecker.org/) probabilistic model checker that provides syntax highlighting.
 
-Currently only tested/developed for concurrent stochastic games (CSGs), but should be easily extendable to other PRISM model types.
+Developed for CSGs, TSGs, MDPs, CTMCs and DTMCs. Focused specifically on CSGs during development so some of the syntax for the other types of models may not be fully supported yet.
 
-### Todo
-- Other query types
-- Properties
-- Other model types
+Particularly we do not support
+- Nested LTL in properties
+- Anything real-time related
+- Anything partially-observable related
 
 ## Build and Test
 Note that tests are only currently written for expressions and not entire CSGs.
@@ -40,14 +40,17 @@ scope = "source.prism"
 [[grammar]]
 name = "prism"
 source = { git = "https://github.com/BrandonTang89/tree-sitter-prism", 
-           rev = "master" }
+           rev = "LATEST_COMMIT_HASH" }
 ```
 
-and then copy the highlights file into `~/.config/helix/runtime/queries/prism`:
+where `LATEST_COMMIT_HASH` is the hash of the latest commit on the main branch of this repository.
+
+and then copy the highlights and indents file into `~/.config/helix/runtime/queries/prism`:
 ```bash
 mkdir -p ~/.config/helix/runtime/queries/prism
 cd ~/.config/helix/runtime/queries/prism
 curl -O https://raw.githubusercontent.com/BrandonTang89/tree-sitter-prism/refs/heads/master/queries/highlights.scm
+curl -O https://raw.githubusercontent.com/BrandonTang89/tree-sitter-prism/refs/heads/master/queries/indents.scm
 ```
 
 and then fetch and build the grammar:
@@ -56,5 +59,5 @@ hx --grammar fetch
 hx --grammar build
 ```
 
-Now if you open a `.prism` file in Helix, it should be highlighted. 
+Now if you open a `.prism` or `.props` file in Helix, it should be highlighted. 
 You can test this on one of the examples such as [csg_mac_example.prism](./test/csg_mac_example.prism).

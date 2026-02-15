@@ -7,7 +7,7 @@
       "title": "prism",
       "scope": "source.prism",
       "file-types": [
-        "prism"
+        "prism", "props"
       ],
       "highlights": "queries/highlights.scm",
       "injection-regex": "^prism$",
