@@ -62,3 +62,10 @@ hx --grammar build
 
 Now if you open a `.prism` or `.props` file in Helix, it should be highlighted. 
 You can test this on one of the examples such as [csg_mac_example.prism](./test/csg_mac_example.prism).
+
+<div align="center">
+  <img src="docs/img/HelixTokyoNightDemo.png" alt="Preview with Helix Tokyo Night Theme" />
+  <p><em>Preview with Helix Tokyo Night Theme</em></p>
+</div>
+
+

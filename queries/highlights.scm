@@ -109,15 +109,16 @@
 (temporal_bound "=" @operator)
 
 ; Coalitions
-(coalition "<<" @punctuation.special)
-(coalition ">>" @punctuation.special)
-(coalition (identifier) @variable.parameter)
-
 (coalition_pair "<<" @punctuation.special)
 (coalition_pair ">>" @punctuation.special)
 (coalition_pair ":" @punctuation.special)
-(coalition_pair coalition1: (identifier) @variable.parameter)
-(coalition_pair coalition2: (identifier) @variable.parameter)
+(coalition_pair (identifier) @variable.parameter)
+(coalition_pair (integer_literal) @variable.parameter)
+
+(coalition "<<" @punctuation.special)
+(coalition ">>" @punctuation.special)
+(coalition (identifier) @variable.parameter)
+(coalition (integer_literal) @variable.parameter)
 
 ; Equilibrium type
 (equilibrium_type equilibrium: _ @keyword)
