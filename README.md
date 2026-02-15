@@ -35,7 +35,7 @@ Add the following to `~/.config/helix/languages.toml`:
 [[language]]
 name = "prism"
 grammar = "prism"
-file-types = ["prism"]
+file-types = ["prism", "props"]
 scope = "source.prism"
 
 [[grammar]]
