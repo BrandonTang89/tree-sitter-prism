@@ -19,11 +19,23 @@
         },
         {
           "type": "SYMBOL",
-          "name": "player_declaration"
+          "name": "const_declaration"
         },
         {
           "type": "SYMBOL",
-          "name": "const_declaration"
+          "name": "global_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "formula_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "label_declaration"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "player_declaration"
         },
         {
           "type": "SYMBOL",
@@ -44,43 +56,36 @@
         },
         {
           "type": "STRING",
+          "value": "smg"
+        },
+        {
+          "type": "STRING",
           "value": "mdp"
         },
         {
           "type": "STRING",
-          "value": "tsg"
+          "value": "dtmc"
+        },
+        {
+          "type": "STRING",
+          "value": "ctmc"
         }
       ]
     },
-    "player_declaration": {
-      "type": "SEQ",
+    "_const_var_type": {
+      "type": "CHOICE",
       "members": [
         {
           "type": "STRING",
-          "value": "player"
-        },
-        {
-          "type": "FIELD",
-          "name": "name",
-          "content": {
-            "type": "SYMBOL",
-            "name": "identifier"
-          }
-        },
-        {
-          "type": "FIELD",
-          "name": "owned_modules",
-          "content": {
-            "type": "REPEAT",
-            "content": {
-              "type": "SYMBOL",
-              "name": "identifier"
-            }
-          }
+          "value": "int"
         },
         {
           "type": "STRING",
-          "value": "endplayer"
+          "value": "double"
+        },
+        {
+          "type": "STRING",
+          "value": "bool"
         }
       ]
     },
@@ -98,21 +103,8 @@
               "type": "FIELD",
               "name": "type",
               "content": {
-                "type": "CHOICE",
-                "members": [
-                  {
-                    "type": "STRING",
-                    "value": "int"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "double"
-                  },
-                  {
-                    "type": "STRING",
-                    "value": "bool"
-                  }
-                ]
+                "type": "SYMBOL",
+                "name": "_const_var_type"
               }
             },
             {
@@ -156,6 +148,181 @@
         {
           "type": "STRING",
           "value": ";"
+        }
+      ]
+    },
+    "global_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "global"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "variable_declaration"
+        }
+      ]
+    },
+    "label_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "label"
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "\""
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "formula_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "formula"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": "="
+        },
+        {
+          "type": "FIELD",
+          "name": "value",
+          "content": {
+            "type": "SYMBOL",
+            "name": "expression"
+          }
+        },
+        {
+          "type": "STRING",
+          "value": ";"
+        }
+      ]
+    },
+    "player_declaration": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "player"
+        },
+        {
+          "type": "FIELD",
+          "name": "name",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "SYMBOL",
+                  "name": "_player_owned"
+                },
+                {
+                  "type": "REPEAT",
+                  "content": {
+                    "type": "SEQ",
+                    "members": [
+                      {
+                        "type": "STRING",
+                        "value": ","
+                      },
+                      {
+                        "type": "SYMBOL",
+                        "name": "_player_owned"
+                      }
+                    ]
+                  }
+                }
+              ]
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "STRING",
+          "value": "endplayer"
+        }
+      ]
+    },
+    "_player_owned": {
+      "type": "CHOICE",
+      "members": [
+        {
+          "type": "FIELD",
+          "name": "owned_module",
+          "content": {
+            "type": "SYMBOL",
+            "name": "identifier"
+          }
+        },
+        {
+          "type": "FIELD",
+          "name": "owned_action",
+          "content": {
+            "type": "SEQ",
+            "members": [
+              {
+                "type": "STRING",
+                "value": "["
+              },
+              {
+                "type": "SYMBOL",
+                "name": "identifier"
+              },
+              {
+                "type": "STRING",
+                "value": "]"
+              }
+            ]
+          }
         }
       ]
     },
@@ -477,7 +644,7 @@
         },
         {
           "type": "SYMBOL",
-          "name": "trans_ward_formula"
+          "name": "trans_reward_formula"
         }
       ]
     },
@@ -510,7 +677,7 @@
         }
       ]
     },
-    "trans_ward_formula": {
+    "trans_reward_formula": {
       "type": "SEQ",
       "members": [
         {
@@ -1298,19 +1465,45 @@
           "type": "CHOICE",
           "members": [
             {
-              "type": "SEQ",
+              "type": "CHOICE",
               "members": [
                 {
-                  "type": "STRING",
-                  "value": "init"
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "init"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "initial_value",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      }
+                    }
+                  ]
                 },
                 {
-                  "type": "FIELD",
-                  "name": "initial_value",
-                  "content": {
-                    "type": "SYMBOL",
-                    "name": "expression"
-                  }
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "init"
+                    },
+                    {
+                      "type": "FIELD",
+                      "name": "init_relation",
+                      "content": {
+                        "type": "SYMBOL",
+                        "name": "expression"
+                      }
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "endinit"
+                    }
+                  ]
                 }
               ]
             },

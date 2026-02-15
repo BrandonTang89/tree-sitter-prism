@@ -1,5 +1,5 @@
 /**
- * @file A tree-sitter grammar for the PRISM-games project, focused on CSGs
+ * @file A tree-sitter grammar for the PRISM-games project
  * @author BrandonTang89 <tangyuhanbrandon@gmail.com>
  * @license MIT
  */
@@ -23,29 +23,70 @@ export default grammar({
 
     _declaration: $ => choice(
       $.model_type_declaration,
-      $.player_declaration,
       $.const_declaration,
+      $.global_declaration,
+      $.formula_declaration,
+      $.label_declaration,
+      $.player_declaration,
       $.module_declaration,
       $.reward_declaration,
     ),
 
     model_type_declaration: $ => choice(
-      'csg', 'mdp', 'tsg'
+      'csg', 'smg', 'mdp', 'dtmc', 'ctmc'
+    ),
+
+    _const_var_type: $ => choice(
+      'int',
+      'double',
+      'bool',
+    ),
+
+    const_declaration: $ => seq(
+      'const',
+      optional(field('type', $._const_var_type)),
+      field('name', $.identifier),
+      optional(seq('=', field('value', $.expression))),
+      ';'
+    ),
+
+    global_declaration: $ => seq(
+      'global',
+      $.variable_declaration,
+    ),
+
+    label_declaration: $ => seq(
+      'label',
+      '"',
+      field('name', $.identifier),
+      '"',
+      '=',
+      field('value', $.expression),
+      ';'
+    ),
+
+    formula_declaration: $ => seq(
+      'formula',
+      field('name', $.identifier),
+      '=',
+      field('value', $.expression),
+      ';'
     ),
 
     player_declaration: $ => seq(
       'player',
       field('name', $.identifier),
-      field('owned_modules', repeat($.identifier)),
+      commaSep($._player_owned),
       'endplayer'
     ),
 
-    const_declaration: $ => seq(
-      'const',
-      optional(field('type', choice('int', 'double', 'bool'))),
-      field('name', $.identifier),
-      optional(seq('=', field('value', $.expression))),
-      ';'
+    _player_owned: $ => choice(
+      field('owned_module', $.identifier),
+      field('owned_action', seq(
+        "[",
+        $.identifier,
+        "]"
+      ))
     ),
 
     module_declaration: $ => seq(
@@ -112,7 +153,7 @@ export default grammar({
 
     reward_formula: $ => choice(
       $.state_reward_formula,
-      $.trans_ward_formula,
+      $.trans_reward_formula,
     ),
 
     state_reward_formula: $ => seq(
@@ -122,7 +163,7 @@ export default grammar({
       ';'
     ),
 
-    trans_ward_formula: $ => seq(
+    trans_reward_formula: $ => seq(
       field('actions', $.action_list),
       field('guard', $.expression),
       ':',
@@ -219,9 +260,16 @@ export default grammar({
         )),
       ),
       optional(
-        seq(
-          'init',
-          field('initial_value', $.expression),
+        choice(
+          seq(
+            'init',
+            field('initial_value', $.expression),
+          ),
+          seq(
+            "init",
+            field('init_relation', $.expression),
+            "endinit"
+          )
         )
       ),
       ';'

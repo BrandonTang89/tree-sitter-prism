@@ -178,6 +178,32 @@
     }
   },
   {
+    "type": "formula_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
     "type": "function_call",
     "named": true,
     "fields": {
@@ -201,6 +227,47 @@
         "types": [
           {
             "type": "builtin_function",
+            "named": true
+          }
+        ]
+      }
+    }
+  },
+  {
+    "type": "global_declaration",
+    "named": true,
+    "fields": {},
+    "children": {
+      "multiple": false,
+      "required": true,
+      "types": [
+        {
+          "type": "variable_declaration",
+          "named": true
+        }
+      ]
+    }
+  },
+  {
+    "type": "label_declaration",
+    "named": true,
+    "fields": {
+      "name": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "value": {
+        "multiple": false,
+        "required": true,
+        "types": [
+          {
+            "type": "expression",
             "named": true
           }
         ]
@@ -297,7 +364,25 @@
           }
         ]
       },
-      "owned_modules": {
+      "owned_action": {
+        "multiple": true,
+        "required": false,
+        "types": [
+          {
+            "type": "[",
+            "named": false
+          },
+          {
+            "type": "]",
+            "named": false
+          },
+          {
+            "type": "identifier",
+            "named": true
+          }
+        ]
+      },
+      "owned_module": {
         "multiple": true,
         "required": false,
         "types": [
@@ -374,7 +459,7 @@
           "named": true
         },
         {
-          "type": "trans_ward_formula",
+          "type": "trans_reward_formula",
           "named": true
         }
       ]
@@ -391,6 +476,18 @@
       "types": [
         {
           "type": "const_declaration",
+          "named": true
+        },
+        {
+          "type": "formula_declaration",
+          "named": true
+        },
+        {
+          "type": "global_declaration",
+          "named": true
+        },
+        {
+          "type": "label_declaration",
           "named": true
         },
         {
@@ -475,7 +572,7 @@
     }
   },
   {
-    "type": "trans_ward_formula",
+    "type": "trans_reward_formula",
     "named": true,
     "fields": {
       "actions": {
@@ -561,6 +658,16 @@
     "named": true,
     "fields": {
       "high": {
+        "multiple": false,
+        "required": false,
+        "types": [
+          {
+            "type": "expression",
+            "named": true
+          }
+        ]
+      },
+      "init_relation": {
         "multiple": false,
         "required": false,
         "types": [
@@ -750,12 +857,24 @@
     "named": false
   },
   {
+    "type": "ctmc",
+    "named": false
+  },
+  {
     "type": "double",
     "named": false
   },
   {
     "type": "double_literal",
     "named": true
+  },
+  {
+    "type": "dtmc",
+    "named": false
+  },
+  {
+    "type": "endinit",
+    "named": false
   },
   {
     "type": "endmodule",
@@ -778,6 +897,14 @@
     "named": false
   },
   {
+    "type": "formula",
+    "named": false
+  },
+  {
+    "type": "global",
+    "named": false
+  },
+  {
     "type": "identifier",
     "named": true
   },
@@ -792,6 +919,10 @@
   {
     "type": "integer_literal",
     "named": true
+  },
+  {
+    "type": "label",
+    "named": false
   },
   {
     "type": "line_comment",
@@ -839,11 +970,11 @@
     "named": false
   },
   {
-    "type": "true",
+    "type": "smg",
     "named": false
   },
   {
-    "type": "tsg",
+    "type": "true",
     "named": false
   },
   {

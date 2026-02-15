@@ -1,0 +1,9 @@
+; ──────────────────────────────────────────
+; Scopes
+; ──────────────────────────────────────────
+(module_declaration) @indent
+("endmodule") @outdent
+(player_declaration) @indent
+("endplayer") @outdent
+(reward_declaration) @indent
+("endrewards") @outdent

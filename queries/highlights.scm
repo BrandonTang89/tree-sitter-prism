@@ -13,9 +13,13 @@
 ("rewards") @keyword.function
 ("endrewards") @keyword.function
 
-; Storage keywords
+; Storage / declaration keywords
 ("const") @keyword.storage.modifier
+("global") @keyword.storage.modifier
 ("init") @keyword.storage.modifier
+("endinit") @keyword.storage.modifier
+("formula") @keyword.storage.type
+("label") @keyword.storage.type
 
 ; Type keywords
 ("int") @type.builtin
@@ -87,6 +91,7 @@
 "," @punctuation.delimiter
 ";" @punctuation.delimiter
 ".." @punctuation.delimiter
+"\"" @punctuation.delimiter
 
 ; ──────────────────────────────────────────
 ; Names and variables
@@ -99,10 +104,18 @@
 ; Player name
 (player_declaration name: (identifier) @namespace)
 ; Modules owned by player
-(player_declaration owned_modules: (identifier) @namespace)
+(player_declaration owned_module: (identifier) @namespace)
+; Actions owned by player
+(player_declaration owned_action: (identifier) @label)
 
 ; Reward structure name
 (reward_declaration name: (identifier) @label)
+
+; Label declaration name
+(label_declaration name: (identifier) @label)
+
+; Formula declaration name
+(formula_declaration name: (identifier) @function)
 
 ; Constant name in declaration
 (const_declaration name: (identifier) @variable)
